@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>TODO</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./css/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="container__left">
+                <div>
+                    <h2>I need to...</h2>
+                </div>
+                <div class="input-wrapper">
+                    <textarea class="input-text" rows=6 placeholder="... buy loads of watermelons." maxlength="80" autofocus required></textarea>
+                    <div class="prio-wrapper">
+                        <label  class="priority-label" for="priority-options">Select priority: </label>
+                        <select class="priority-options">
+                            <option id="option__low" value = "low" selected>Low</option>
+                            <option id="option__medium" value = "medium" >Medium</option>
+                            <option id="option__high" value = "high" >High</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn add-btn"><span>Add</span></button>
+                    <button class="btn delete-all-btn"><span>Delete All</span></button>
+                </div>
+                
+                
+                
+            </div>
+
+            <!---
+            <div class="container__options">
+                <div class="options">
+                    <div class="sort">
+                        <label class="sort-label" for="sort">Sort by</label>
+                        <select class="right" name="sort">
+                            <option>A-Z</option>
+                            <option>Z-A</option>
+                            <option>Low priority</option>
+                            <option>Moderate priority</option>
+                            <option>High priority</option>
+                        </select>
+                        <button class="btn sort-btn"><span>Sort</span></button>
+                    </div>
+                </div>
+            </div>
+            --->
+
+            <div class="container__right">
+                <ul class="todo-list">
+                <!--
+                    <li class="list-item" id="%ID%">
+                        <div class="item__data">
+                            <div class="item__text">1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</div>
+
+                            <div class="item__status">
+                                <div class="item__prio" id="high"></div>
+                            
+                                <div class="item__prio" id="medium"></div>
+                                <div class="item__prio" id="low"></div>
+                        
+                                <div class="item__checkmark">
+                                    <ion-icon class="checkmark-btn" name="checkmark"></ion-icon>
+                                </div>
+                                    
+                                <div class="item__delete">
+                                    <ion-icon class="delete-btn" name="close"></ion-icon>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                -->
+                </ul>
+            </div>
+        </div>
+
+        <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+        <script src="./js/index.js" type="text/javascript"></script>
+    
+    </body>
+</html>
