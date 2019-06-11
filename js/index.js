@@ -152,7 +152,7 @@ document.querySelector('.todo-list').addEventListener('click', (event) =>{
     if (!event.target) {
         return;
     }
-    else if (event.target.matches('.delete-btn')) {
+    if (event.target.matches('.delete-btn')) {
         // delete item from data
         deleteNote(event);
         // delete item from UI
