@@ -14,13 +14,13 @@ const allData = [];
 //////////////////////////////////////////////////////////////////////////////
 // MODULES
 
-class Note {
-    constructor(id, text, priority) {
-        this.id = id;
-        this.text = text;
-        this.priority = priority;
-    }
-};
+// Create a factory function instead
+
+const createNote = (text) => ({
+    text,
+    priority: getPriority(),
+    id: uniqueId()
+});
 
 const getPriority = () => {
     const selItem = elements.priorityOptions;
@@ -117,10 +117,8 @@ const renderPrio = (obj) => {
 const addItem = () => {
     // if there's some entered text, then:
     if(elements.textInput.value) {
-        // create new data object
-        const data = new Note();
-        // fill object with text and priority
-        const newItem = getData(data);
+        // create a note
+        const newItem = createNote(elements.textInput.value);
         // render new note to the UI
         renderNote(newItem);
         // render the priority color to the item
