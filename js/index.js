@@ -14,13 +14,13 @@ const allData = [];
 //////////////////////////////////////////////////////////////////////////////
 // MODULES
 
-class Note {
-    constructor(id, text, priority) {
-        this.id = id;
-        this.text = text;
-        this.priority = priority;
-    }
-};
+// Create a factory function instead
+
+const createNote = (text) => ({
+    text,
+    priority: getPriority(),
+    id: uniqueId()
+});
 
 const getPriority = () => {
     const selItem = elements.priorityOptions;
@@ -46,6 +46,9 @@ const clearField = () => {
     elements.textInput.value = '';
 };
 
+
+// Consider refactroing this function
+// You can use the same technics to get the id as in the UI item delete function
 const deleteNote = (event) => {
     // get which item was clicked -> itemID
     const itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
@@ -95,16 +98,18 @@ const renderNote = obj => {
 
 };
 
-const renderPrio = (obj) => {
-    if (obj.priority === 'high') {
+const renderPrio = ({priority}) => {
+    // use destructuring
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+    if (priority === 'high') {
         document.querySelector('.high').classList.add('color1');
         document.querySelector('.high').classList.remove('high');
     }
-    else if (obj.priority === 'medium') {
+    else if (priority === 'medium') {
         document.querySelector('.medium').classList.add('color2');
         document.querySelector('.medium').classList.remove('medium');
     }
-    else if (obj.priority === 'low') {
+    else if (priority === 'low') {
         document.querySelector('.low').classList.add('color3');
         document.querySelector('.low').classList.remove('low');
     }
@@ -115,12 +120,11 @@ const renderPrio = (obj) => {
 // CONTROLlER
 
 const addItem = () => {
+    const inputValue = elements.textInput.value;
     // if there's some entered text, then:
-    if(elements.textInput.value) {
-        // create new data object
-        const data = new Note();
-        // fill object with text and priority
-        const newItem = getData(data);
+    if(inputValue) {
+        // create a note
+        const newItem = createNote(inputValue);
         // render new note to the UI
         renderNote(newItem);
         // render the priority color to the item
@@ -152,7 +156,7 @@ document.querySelector('.todo-list').addEventListener('click', (event) =>{
     if (!event.target) {
         return;
     }
-    else if (event.target.matches('.delete-btn')) {
+    if (event.target.matches('.delete-btn')) {
         // delete item from data
         deleteNote(event);
         // delete item from UI
