@@ -115,10 +115,11 @@ const renderPrio = (obj) => {
 // CONTROLlER
 
 const addItem = () => {
+    const inputValue = elements.textInput.value;
     // if there's some entered text, then:
-    if(elements.textInput.value) {
+    if(inputValue) {
         // create a note
-        const newItem = createNote(elements.textInput.value);
+        const newItem = createNote(inputValue);
         // render new note to the UI
         renderNote(newItem);
         // render the priority color to the item
