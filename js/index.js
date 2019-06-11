@@ -95,16 +95,18 @@ const renderNote = obj => {
 
 };
 
-const renderPrio = (obj) => {
-    if (obj.priority === 'high') {
+const renderPrio = ({priority}) => {
+    // use destructuring
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+    if (priority === 'high') {
         document.querySelector('.high').classList.add('color1');
         document.querySelector('.high').classList.remove('high');
     }
-    else if (obj.priority === 'medium') {
+    else if (priority === 'medium') {
         document.querySelector('.medium').classList.add('color2');
         document.querySelector('.medium').classList.remove('medium');
     }
-    else if (obj.priority === 'low') {
+    else if (priority === 'low') {
         document.querySelector('.low').classList.add('color3');
         document.querySelector('.low').classList.remove('low');
     }
