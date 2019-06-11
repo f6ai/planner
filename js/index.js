@@ -46,6 +46,9 @@ const clearField = () => {
     elements.textInput.value = '';
 };
 
+
+// Consider refactroing this function
+// You can use the same technics to get the id as in the UI item delete function
 const deleteNote = (event) => {
     // get which item was clicked -> itemID
     const itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
