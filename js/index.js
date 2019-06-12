@@ -13,57 +13,35 @@ const allData = [];
 
 //////////////////////////////////////////////////////////////////////////////
 // MODULES
-
-class Note {
-    constructor(id, text, priority) {
-        this.id = id;
-        this.text = text;
-        this.priority = priority;
-    }
-};
+const createNote = (noteText) => ({
+    noteText,
+    priority: getPriority(),
+    id: uniqueId()
+});
 
 const getPriority = () => {
     const selItem = elements.priorityOptions;
-    const value = selItem.options[selItem.selectedIndex].value;
-    return value;
+    const prioValue = selItem.options[selItem.selectedIndex].value;
+    return prioValue;
 };
 
 const uniqueId = () => {
     return 'id-' + Math.random().toString(36).substr(2, 16);
 };
 
-const getData = (obj) => {
-    // create unique id for the obj
-    obj.id = uniqueId();
-    // return the value of textentry
-    obj.text = elements.textInput.value;
-    // get the entered priority info
-    obj.priority = getPriority();
-    return obj;
-};
-
 const clearField = () => {
     elements.textInput.value = '';
 };
 
-const deleteNote = (event) => {
-    // get which item was clicked -> itemID
-    const itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
-    //console.log(itemID);
-    if (itemID) {
-        //delete item from data
-        deleteData(itemID, allData);
-    } 
-};
-
 const deleteData = (id, arr) => {
-    arr.forEach((cur, i) => {
-        if (id === cur.id) {
-            arr.splice(i, 1);
-        }
-    });
+    if (id) {
+        arr.forEach((cur, i) => {
+            if (id === cur.id) {
+                arr.splice(i, 1);
+            }
+        });
+    }
 };
-
 
 /////////////////////////////////////////////////////////////////////////////////
 // UI VIEW
@@ -72,7 +50,7 @@ const renderNote = obj => {
     const markup = `
         <li class="list-item" id="${obj.id}">
             <div class="item__data">
-                <div class="item__text">${obj.text}</div>
+                <div class="item__text">${obj.noteText}</div>
                 <div class="item__status">
                     <div class="item__prio ${obj.priority}"></div>
                     <!--
@@ -95,16 +73,16 @@ const renderNote = obj => {
 
 };
 
-const renderPrio = (obj) => {
-    if (obj.priority === 'high') {
+const renderPrio = ({priority}) => {
+    if (priority === 'high') {
         document.querySelector('.high').classList.add('color1');
         document.querySelector('.high').classList.remove('high');
     }
-    else if (obj.priority === 'medium') {
+    else if (priority === 'medium') {
         document.querySelector('.medium').classList.add('color2');
         document.querySelector('.medium').classList.remove('medium');
     }
-    else if (obj.priority === 'low') {
+    else if (priority === 'low') {
         document.querySelector('.low').classList.add('color3');
         document.querySelector('.low').classList.remove('low');
     }
@@ -115,12 +93,10 @@ const renderPrio = (obj) => {
 // CONTROLlER
 
 const addItem = () => {
+    const inputText = elements.textInput.value;
     // if there's some entered text, then:
-    if(elements.textInput.value) {
-        // create new data object
-        const data = new Note();
-        // fill object with text and priority
-        const newItem = getData(data);
+    if(inputText) {
+        const newItem = createNote(inputText);
         // render new note to the UI
         renderNote(newItem);
         // render the priority color to the item
@@ -130,7 +106,6 @@ const addItem = () => {
         // delete the textentry field to prevent entering the same text twice
        clearField();
     }
-    console.log(allData)
     return allData;
 };
 
@@ -152,9 +127,11 @@ document.querySelector('.todo-list').addEventListener('click', (event) =>{
     if (!event.target) {
         return;
     }
-    else if (event.target.matches('.delete-btn')) {
+    if (event.target.matches('.delete-btn')) {
+        // get which item was clicked -> itemID
+        const itemID = event.target.closest('.list-item').id;;
         // delete item from data
-        deleteNote(event);
+        deleteData(itemID, allData);
         // delete item from UI
         event.target.closest('.list-item').remove();
     }
